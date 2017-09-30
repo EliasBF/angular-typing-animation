@@ -13,6 +13,7 @@ export class Typed {
             typeSpeed: 0,
             startDelay: 0,
             showCursor: true,
+            hideCursorOnLast: false,
             onComplete: () => {}
         }
 
@@ -27,6 +28,10 @@ export class Typed {
     }
 
     public begin () {
+        if (this.typingComplete) {
+            return this.restart()
+        }
+
         this.insertCursor()
         
         this.timeout = setTimeout(() => {
@@ -68,6 +73,9 @@ export class Typed {
     }
 
     private complete () {
+        if (this.options.hideCursorOnComplete) {
+            this.removeCursor()
+        }
         this.typingComplete = true
         this.options.onComplete()
     }
@@ -80,12 +88,10 @@ export class Typed {
         clearTimeout(this.timeout)
         this.replaceText('')
 
-        if (this.cursor && this.cursor.parentNode) {
-            this.cursor.parentNode.removeChild(this.cursor)
-            this.cursor = null
-        }
+        this.removeCursor()
 
         this.strPos = 0
+        this.typingComplete = false
         this.begin()
 
     }
@@ -100,6 +106,13 @@ export class Typed {
         this.cursor.innerHTML = '|'
 
         this.element.parentNode && this.element.parentNode.insertBefore(this.cursor, this.element.nextSibling)
+    }
+
+    private removeCursor () {
+        if (this.cursor && this.cursor.parentNode) {
+            this.cursor.parentNode.removeChild(this.cursor)
+            this.cursor = null
+        }
     }
 
     private replaceText (str: string) {

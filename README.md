@@ -55,6 +55,16 @@ typeSpeed: 0,
 startDelay: 0,
 
 /**
+ * @property {boolean} condition, required condition for typing begin
+ */
+condition: true,
+
+/**
+ * @property {boolean} hideCursorOnComplete, hide cursor on typing complete
+ */
+hideCursorOnComplete: false,
+
+/**
  * All typing is complete
  * @event TypingAnimation#complete
  */
