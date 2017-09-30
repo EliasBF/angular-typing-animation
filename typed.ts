@@ -12,6 +12,7 @@ export class Typed {
         const defaults: any = {
             typeSpeed: 0,
             startDelay: 0,
+            showCursor: true,
             onComplete: () => {}
         }
 
