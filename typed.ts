@@ -139,8 +139,13 @@ export class Typed {
 
     private appendAnimationCss () {
         if (this.options.showCursor) {
+            if (document.head.querySelector('#typing')) {
+                return
+            }
+
             let css = document.createElement('style')
             css.type = 'text/css'
+            css.id = 'typing'
 
             const innerCss = `
                 .typed-cursor{
