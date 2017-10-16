@@ -43,15 +43,9 @@ export class TypingAnimationDirective implements OnInit, OnChanges {
                 return
             }
 
-            const value = changes['condition'].currentValue
-
-            if (value !== this.condition) {
-                this.condition = value
-
-                if (this.condition) {
-                    this.typed.begin()
-                    this.typingLock = true
-                }
+            if (this.condition) {
+                this.typed.begin()
+                this.typingLock = true
             }
         }
     }
