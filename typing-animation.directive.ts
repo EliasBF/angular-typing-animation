@@ -13,7 +13,7 @@ export class TypingAnimationDirective implements OnInit, OnChanges {
     @Input('typeSpeed') typeSpeed: number = 0
     @Input('startDelay') startDelay: number = 0
     @Input('condition') condition: boolean = true
-    @Input('hideCursorOnLast') hideCursorOnComplete: boolean = false
+    @Input('hideCursorOnComplete') hideCursorOnComplete: boolean = false
     @Output('complete') complete: EventEmitter<null> = new EventEmitter()
     typingLock: boolean = false
 
@@ -43,15 +43,9 @@ export class TypingAnimationDirective implements OnInit, OnChanges {
                 return
             }
 
-            const value = changes['condition'].currentValue
-
-            if (value !== this.condition) {
-                this.condition = value
-
-                if (this.condition) {
-                    this.typed.begin()
-                    this.typingLock = true
-                }
+            if (this.condition) {
+                this.typed.begin()
+                this.typingLock = true
             }
         }
     }
