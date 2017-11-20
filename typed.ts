@@ -73,7 +73,7 @@ export class Typed {
     }
 
     private complete () {
-        if (this.options.hideCursorOnComplete) {
+        if (this.options.hideCursorOnLast) {
             this.removeCursor()
         }
         this.typingComplete = true
