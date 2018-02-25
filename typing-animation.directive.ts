@@ -38,7 +38,7 @@ export class TypingAnimationDirective implements OnInit, OnChanges {
     }
 
     ngOnChanges (changes: SimpleChanges) {
-        if ('condition' in changes) {
+        if (('condition' in changes) && this.typed) {
             if (this.typingLock) {
                 return
             }
