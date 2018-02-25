@@ -13,7 +13,7 @@ export class Typed {
             typeSpeed: 0,
             startDelay: 0,
             showCursor: true,
-            hideCursorOnLast: false,
+            hideCursorOnComplete: false,
             onComplete: () => {}
         }
 
