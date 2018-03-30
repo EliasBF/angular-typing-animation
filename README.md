@@ -8,22 +8,22 @@
 $ npm install angular-typing-animation --save
 ```
 
-- Import TypingAnimationDirective to your AppModule
+- Import TypingAnimationModule to your AppModule
 
 ``` js
 import { NgModule } from '@angular/core'
 import { BrowserModule  } from '@angular/platform-browser'
 
 import { AppComponent } from './app.component';
-import { TypingAnimationDirective } from 'angular-typing-animation'
+import { TypingAnimationModule } from 'angular-typing-animation'
 
 @NgModule({
     imports: [
-        BrowserModule
+        BrowserModule,
+        TypingAnimationModule
     ],
     declarations: [
         AppComponent
-        TypingAnimationDirective
     ],
     bootstrap: [AppComponent]
 })
