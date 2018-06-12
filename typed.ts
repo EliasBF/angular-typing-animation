@@ -8,7 +8,7 @@ export class Typed {
     typingComplete: boolean
     timeout: any
 
-    constructor (element: any, options: any) {
+    constructor(element: any, options: any, textContent: string) {
         const defaults: any = {
             typeSpeed: 0,
             startDelay: 0,
@@ -22,7 +22,7 @@ export class Typed {
         this.textContent = element.textContent.trim()
         this.strPos = 0
         this.typingComplete = false
-
+        this.textContent = textContent
         this.element.textContent = ''
         this.appendAnimationCss()
     }

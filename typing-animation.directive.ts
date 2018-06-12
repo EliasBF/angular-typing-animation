@@ -17,6 +17,7 @@ export class TypingAnimationDirective implements OnInit, OnChanges, AfterViewIni
     @Input('startDelay') startDelay: number = 0
     @Input('condition') condition: boolean = true
     @Input('hideCursorOnComplete') hideCursorOnComplete: boolean = false
+    @Input('text') text: any = ''
     @Output('complete') complete: EventEmitter<null> = new EventEmitter()
     typingLock: boolean = false
     contentObservable: Observable<string>
@@ -28,7 +29,6 @@ export class TypingAnimationDirective implements OnInit, OnChanges, AfterViewIni
         if (!this.checkContent()) {
             return
         }
-
         this.createTyped()
     }
 
@@ -40,7 +40,7 @@ export class TypingAnimationDirective implements OnInit, OnChanges, AfterViewIni
         if (!this.checkContent()) {
             this.contentObservable = new Observable((ob) => {
                 if (this.checkContent()) {
-                    ob.next(this.elRef.nativeElement.textContent.trim())
+                    ob.next(this.text)
                     ob.complete()
                 }
             })
@@ -61,16 +61,27 @@ export class TypingAnimationDirective implements OnInit, OnChanges, AfterViewIni
             if (this.typingLock) {
                 return
             }
-
             if (this.condition) {
+                this.typed.begin()
+                this.typingLock = true
+            }
+        }
+
+        if ('text' in changes && this.typed) {
+            if (this.typingLock) {
+                return;
+            }
+            if (this.condition) {
+                this.typed.textContent = this.text;
                 this.typed.begin()
                 this.typingLock = true
             }
         }
     }
 
-    private checkContent () {
-        return this.elRef.nativeElement.textContent.trim().length > 0
+
+    private checkContent() {
+        return this.text;
     }
 
     private createTyped () {
@@ -83,7 +94,9 @@ export class TypingAnimationDirective implements OnInit, OnChanges, AfterViewIni
                 this.complete.emit(null)
                 this.typingLock = false
             }
-        })
+        },
+            this.text
+        )
 
         if (this.condition) {
             this.typed.begin()
